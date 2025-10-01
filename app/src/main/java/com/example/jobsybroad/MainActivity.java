@@ -1,5 +1,4 @@
 package com.example.jobsybroad;
-
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.BroadcastReceiver;
@@ -10,7 +9,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -28,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 mensaje = "Modo Avión Desactivado";
             }
-
-            // Actualizar el TextView directamente
             textBroadcastDinamico.setText(mensaje);
 
             JobInfo jobInfo = getJobInfo(MainActivity.this);
@@ -47,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    // BroadcastReceiver para recibir actualizaciones del JobService
     private BroadcastReceiver jobUpdateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -63,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Inicializar el TextView
         textBroadcastDinamico = findViewById(R.id.textBroadcastDinamico);
     }
 
@@ -80,11 +74,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        // Registrar receiver para modo avión
         IntentFilter filter = new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED);
         registerReceiver(airplaneReceiver, filter);
 
-        // Registrar receiver para actualizaciones del JobService
         IntentFilter jobFilter = new IntentFilter("JOB_UPDATE");
         LocalBroadcastManager.getInstance(this).registerReceiver(jobUpdateReceiver, jobFilter);
     }
